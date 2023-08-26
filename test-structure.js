@@ -1,7 +1,9 @@
-import { Selector, fixture, test } from "testcafe";
+import { Selector, fixture, test } from "testcafe"; // first imported testcafe selectors
 
-fixture `LoginPage`
-.page `https://dev.deepthought.education/login`;
+fixture `LoginPage` // declare the fixture
+.page `https://dev.deepthought.education/login`; // specify the start page of the given website
+
+//then created a test and placed code within it
 
 test('test with valid credentials', async t => {
 
@@ -9,15 +11,16 @@ test('test with valid credentials', async t => {
     .typeText(Selector('#username'), 'daminidhondge')
     .typeText(Selector('#password'), 'Deep@123')
     .click(Selector('.btn'))
-    .expect(Selector('h5').withExactText('Welcome to DeepThought').exists).ok();
-   
+    .expect(Selector('h5').withExactText('Welcome to DeepThought').exists).ok(); 
+    // Used the assertion to check if actual header text equals expected text
+
 })
 
-test('test with invalid credentials', async t => {
+test('test with Invalid credentials', async t => {
 
     await t 
     .typeText(Selector('#username'), 'daminidhondge')
     .typeText(Selector('#password'), 'Deep@2023')
     .click(Selector('.btn'))
-    .wait(60000) 
+    .expect(Selector('#login-error-notify').innerText).eql('Login Unsuccessful');
 })
